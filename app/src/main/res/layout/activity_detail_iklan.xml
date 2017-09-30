@@ -34,7 +34,7 @@
                     android:id="@+id/indicator"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:paddingBottom="20dp"
+                    android:paddingBottom="40sp"
                     android:layout_alignParentBottom="true"/>
                 <TextView
                     android:id="@+id/tvHarga"
@@ -42,8 +42,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="100dp"
                     android:text="Rp 310.00/Hari"
-                    android:background="@color/colorAccent"
+                    android:background="@color/colorPrimaryDark"
                     android:padding="10dp"
+                    android:textColor="@color/white"
                     android:textSize="14sp"/>
             </RelativeLayout>
             <android.support.v7.widget.Toolbar
@@ -60,10 +61,12 @@
 
     <FrameLayout
         android:id="@+id/frUser"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_anchor="@id/app_bar"
-        android:padding="20sp"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:paddingTop="50sp"
         app:layout_anchorGravity="bottom|end">
         <include layout="@layout/card_user" />
     </FrameLayout>

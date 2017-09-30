@@ -16,15 +16,37 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:padding="10dp">
-
-        <TextView
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/ivUser"
+            app:riv_oval="true"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/guest"
+            android:paddingTop="@dimen/nav_header_vertical_spacing" />
+        <LinearLayout
             android:layout_width="match_parent"
-            android:padding="20dp"
             android:layout_height="wrap_content"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, s"
-            />
+            android:paddingLeft="10sp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:paddingTop="30sp"
+                android:text="Member"
+                />
+            <TextView
+                android:id="@+id/tvUserCreated"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:paddingTop="5sp"
+                android:text="Member sejak 3 Feb 2016"
+                />
+        </LinearLayout>
 
     </LinearLayout>
 

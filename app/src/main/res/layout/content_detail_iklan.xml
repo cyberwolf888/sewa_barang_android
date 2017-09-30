@@ -4,14 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="80sp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.android.sewabarang.DetailIklanActivity"
     tools:showIn="@layout/activity_detail_iklan">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+        xmlns:card_view="http://schemas.android.com/tools"
+        android:id="@+id/cvCanang"
+        android:elevation="8dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0.0px"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        card_view:cardElevation="10dp"
+        android:layout_margin="10sp"
+        android:layout_marginBottom="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvJudul"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:text="asdasd"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvDeskripsi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/text_margin"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:layout_marginRight="@dimen/text_margin"
+                android:text="asdasd"
+                android:textSize="15sp"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+
+
 
 </android.support.v4.widget.NestedScrollView>

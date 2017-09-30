@@ -13,11 +13,14 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 import com.android.sewabarang.Adapter.SlideAdapter;
+import com.android.sewabarang.Utility.Helper;
 import com.android.sewabarang.Utility.RequestServer;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -32,8 +35,10 @@ public class DetailIklanActivity extends AppCompatActivity {
     private static ViewPager mPager;
     private static int currentPage = 0;
     private ArrayList<String> imgsarray = new ArrayList<String>();
+    private TextView tvHarga,tvUserName,tvUserCreated,tvJudul,tvDeskripsi;
+    private ImageView ivUser;
 
-    private String id_iklan;
+    private String id_iklan,title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +47,21 @@ public class DetailIklanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail_iklan);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
         collapsingToolbarLayout.setTitle(" ");
         final FrameLayout frUser = (FrameLayout) findViewById(R.id.frUser);
+
+        title = " ";
+        tvHarga = (TextView) findViewById(R.id.tvHarga);
+        tvUserName = (TextView) findViewById(R.id.tvUserName);
+        tvUserCreated = (TextView) findViewById(R.id.tvUserCreated);
+        tvJudul = (TextView) findViewById(R.id.tvJudul);
+        tvDeskripsi = (TextView) findViewById(R.id.tvDeskripsi);
+        ivUser = (ImageView) findViewById(R.id.ivUser);
 
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShow = false;
@@ -58,7 +73,7 @@ public class DetailIklanActivity extends AppCompatActivity {
                     scrollRange = appBarLayout.getTotalScrollRange();
                 }
                 if (scrollRange + verticalOffset == 0) {
-                    collapsingToolbarLayout.setTitle("Title");
+                    collapsingToolbarLayout.setTitle(title);
                     frUser.setVisibility(View.GONE);
                     isShow = true;
                 } else if(isShow) {
@@ -99,6 +114,19 @@ public class DetailIklanActivity extends AppCompatActivity {
                         JsonObject data = result.get("data").getAsJsonObject();
                         final JsonArray imgs = data.get("gambar_iklan").getAsJsonArray();
                         Log.d("data",">"+data);
+                        title = data.get("judul").getAsString();
+                        JsonObject user = data.get("user").getAsJsonObject();
+                        tvHarga.setText(new Helper().formatNumber(Integer.valueOf(data.get("harga").getAsString()))+"/"+data.get("satuan").getAsString());
+                        tvUserName.setText(user.get("name").getAsString());
+                        tvUserCreated.setText("Member sejak "+user.get("created_at").getAsString());
+                        tvJudul.setText(data.get("judul").getAsString());
+                        tvDeskripsi.setText(data.get("deskripsi").getAsString());
+                        Ion.with(DetailIklanActivity.this)
+                                .load(new RequestServer().getImg_url()+"profile/"+user.get("img").getAsString())
+                                .withBitmap()
+                                .placeholder(R.drawable.guest)
+                                .error(R.drawable.guest)
+                                .intoImageView(ivUser);
                         if(!imgs.isJsonNull()){
                             for (int i=0; i<imgs.size(); i++){
                                 JsonObject img = imgs.get(i).getAsJsonObject();
