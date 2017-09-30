@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.android.sewabarang.TambahGambarIklanActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+        <ProgressBar
+            android:id="@+id/iklan_progress"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone" />
+        <LinearLayout
+            android:id="@+id/form_tambah_gambar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textSize="14dp"
+                android:text="Menampilkan lebih dari satu foto barang akan menambah kepercayaan calom pemnyewa dan meningkatkan kesempatan barang disewa." />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/iv1"
+                    android:layout_width="100sp"
+                    android:layout_height="100sp"
+                    android:background="@drawable/ic_add_img"
+                    android:scaleType="centerCrop"
+                    android:layout_margin="10dp"/>
+                <ImageView
+                    android:id="@+id/iv2"
+                    android:layout_width="100sp"
+                    android:layout_height="100sp"
+                    android:background="@drawable/ic_add_img"
+                    android:scaleType="centerCrop"
+                    android:layout_margin="10dp"/>
+                <ImageView
+                    android:id="@+id/iv3"
+                    android:layout_width="100sp"
+                    android:layout_height="100sp"
+                    android:background="@drawable/ic_add_img"
+                    android:scaleType="centerCrop"
+                    android:layout_margin="10dp"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnSimpan"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Simpan"
+                android:textSize="18dp"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_kelola_iklan"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.android.sewabarang.KelolaIklanActivity"
+    tools:showIn="@layout/activity_kelola_iklan"
+    android:gravity="center|top"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvKosong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@color/colorAccent"
+        android:text="Anda belum pernah memasang iklan. Silakan tap tanda tambah di pohok kanang bawah untuk menambahkan iklan."
+        android:layout_margin="10dp"
+        android:visibility="gone"/>
+
+    <ListView
+        android:id="@+id/lvKelolaIklan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10dp"/>
+
+</LinearLayout>
