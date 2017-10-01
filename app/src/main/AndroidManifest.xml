@@ -52,11 +52,12 @@
             android:label="Tambah Gambar" />
         <activity
             android:name=".DetailIklanActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ScrollingActivity"
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SampleButtonActivity"></activity>
     </application>
 
 </manifest>

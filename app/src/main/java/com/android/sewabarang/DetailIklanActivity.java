@@ -1,10 +1,12 @@
 package com.android.sewabarang;
 
+import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ import java.util.TimerTask;
 import com.android.sewabarang.Adapter.SlideAdapter;
 import com.android.sewabarang.Utility.Helper;
 import com.android.sewabarang.Utility.RequestServer;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -53,7 +55,8 @@ public class DetailIklanActivity extends AppCompatActivity {
         final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
         collapsingToolbarLayout.setTitle(" ");
-        final FrameLayout frUser = (FrameLayout) findViewById(R.id.frUser);
+        //final View vSpace = (View) findViewById(R.id.vSpace);
+        final NestedScrollView content_detail_iklan = (NestedScrollView) findViewById(R.id.content_detail_iklan);
 
         title = " ";
         tvHarga = (TextView) findViewById(R.id.tvHarga);
@@ -74,20 +77,23 @@ public class DetailIklanActivity extends AppCompatActivity {
                 }
                 if (scrollRange + verticalOffset == 0) {
                     collapsingToolbarLayout.setTitle(title);
-                    frUser.setVisibility(View.GONE);
+                    //vSpace.setVisibility(View.GONE);
                     isShow = true;
                 } else if(isShow) {
                     collapsingToolbarLayout.setTitle(" ");//carefull there should a space between double quote otherwise it wont work
-                    frUser.setVisibility(View.VISIBLE);
+                    //vSpace.setVisibility(View.VISIBLE);
                     isShow = false;
                 }
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        final FloatingActionsMenu menuMultipleActions = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
+        
+        final com.getbase.floatingactionbutton.FloatingActionButton actionA = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.action_a);
+        actionA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                actionA.setTitle("Action A clicked");
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }

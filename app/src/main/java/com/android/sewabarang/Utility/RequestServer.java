@@ -3,7 +3,7 @@ package com.android.sewabarang.Utility;
 
 public class RequestServer {
     // ip localhost untuk avd emulator 10.0.2.2
-    private String server_ip = "10.0.2.2";
+    private String server_ip = "192.168.1.1";
     private String server_url = "/sewabarang/api/";
     private String img_url = "/sewabarang/assets/img/";
 

@@ -33,5 +33,6 @@ dependencies {
     compile 'com.koushikdutta.ion:ion:2.+'
     compile 'com.makeramen:roundedimageview:2.3.0'
     compile 'me.relex:circleindicator:1.2.2@aar'
+    compile 'com.getbase:floatingactionbutton:1.10.1'
     testCompile 'junit:junit:4.12'
 }

@@ -10,7 +10,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="280dp"
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay">
 
@@ -59,24 +59,47 @@
 
     <include layout="@layout/content_detail_iklan" />
 
-    <FrameLayout
-        android:id="@+id/frUser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_anchor="@id/app_bar"
-        android:paddingLeft="10sp"
-        android:paddingRight="10sp"
-        android:paddingTop="50sp"
-        app:layout_anchorGravity="bottom|end">
-        <include layout="@layout/card_user" />
-    </FrameLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:fab="http://schemas.android.com/apk/res-auto"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_add" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:id="@+id/multiple_actions"
+            android:src="@drawable/ic_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            fab:fab_addButtonColorNormal="@color/colorPrimary"
+            fab:fab_addButtonColorPressed="@color/colorPrimaryDark"
+            fab:fab_addButtonPlusIconColor="@color/white"
+            fab:fab_labelStyle="@style/menu_labels_style"
+            android:layout_margin="@dimen/fab_margin">
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_a"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fab:fab_colorNormal="@color/white"
+                fab:fab_title="SMS"
+                fab:fab_icon="@drawable/ic_menu_camera"
+                fab:fab_colorPressed="@color/white_pressed"/>
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fab:fab_colorNormal="@color/white"
+                fab:fab_icon="@drawable/ic_menu_camera"
+                fab:fab_title="Call"
+                fab:fab_colorPressed="@color/white_pressed"/>
+
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+    </RelativeLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>
