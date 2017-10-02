@@ -1,6 +1,7 @@
 package com.android.sewabarang;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -10,6 +11,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -37,10 +39,10 @@ public class DetailIklanActivity extends AppCompatActivity {
     private static ViewPager mPager;
     private static int currentPage = 0;
     private ArrayList<String> imgsarray = new ArrayList<String>();
-    private TextView tvHarga,tvUserName,tvUserCreated,tvJudul,tvDeskripsi;
+    private TextView tvHarga,tvUserName,tvUserCreated,tvJudul,tvDeskripsi,tvLokasi,tvDilihat,tvDihubungi,tvDipasang;
     private ImageView ivUser;
 
-    private String id_iklan,title;
+    private String id_iklan,title,no_hp,location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,10 @@ public class DetailIklanActivity extends AppCompatActivity {
         tvUserCreated = (TextView) findViewById(R.id.tvUserCreated);
         tvJudul = (TextView) findViewById(R.id.tvJudul);
         tvDeskripsi = (TextView) findViewById(R.id.tvDeskripsi);
+        tvLokasi = (TextView) findViewById(R.id.tvLokasi);
+        tvDilihat = (TextView) findViewById(R.id.tvDilihat);
+        tvDihubungi = (TextView) findViewById(R.id.tvDihubungi);
+        tvDipasang = (TextView) findViewById(R.id.tvDipasang);
         ivUser = (ImageView) findViewById(R.id.ivUser);
 
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
@@ -93,9 +99,49 @@ public class DetailIklanActivity extends AppCompatActivity {
         actionA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                actionA.setTitle("Action A clicked");
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                String url = new RequestServer().getServer_url() + "addDihubungi";
+                JsonObject jsonReq = new JsonObject();
+                jsonReq.addProperty("id_iklan", id_iklan);
+                Ion.with(DetailIklanActivity.this)
+                        .load(url)
+                        .setJsonObjectBody(jsonReq)
+                        .asString()
+                        .setCallback(new FutureCallback<String>() {
+                            @Override
+                            public void onCompleted(Exception e, String result) {
+                                Log.d("Result",">"+result);
+                            }
+                        });
+                sendSMSMessage(no_hp);
+            }
+        });
+
+        final com.getbase.floatingactionbutton.FloatingActionButton actionB = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.action_b);
+        actionB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = new RequestServer().getServer_url() + "addDihubungi";
+                JsonObject jsonReq = new JsonObject();
+                jsonReq.addProperty("id_iklan", id_iklan);
+                Ion.with(DetailIklanActivity.this)
+                        .load(url)
+                        .setJsonObjectBody(jsonReq)
+                        .asString()
+                        .setCallback(new FutureCallback<String>() {
+                            @Override
+                            public void onCompleted(Exception e, String result) {
+                                Log.d("Result",">"+result);
+                            }
+                        });
+                launchDialer(no_hp);
+            }
+        });
+
+        CardView cvLokasi = (CardView) findViewById(R.id.cvLokasi);
+        cvLokasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openMap(location);
             }
         });
 
@@ -124,15 +170,21 @@ public class DetailIklanActivity extends AppCompatActivity {
                         JsonObject user = data.get("user").getAsJsonObject();
                         tvHarga.setText(new Helper().formatNumber(Integer.valueOf(data.get("harga").getAsString()))+"/"+data.get("satuan").getAsString());
                         tvUserName.setText(user.get("name").getAsString());
-                        tvUserCreated.setText("Member sejak "+user.get("created_at").getAsString());
+                        tvUserCreated.setText("Member sejak "+data.get("memberSejak").getAsString());
                         tvJudul.setText(data.get("judul").getAsString());
                         tvDeskripsi.setText(data.get("deskripsi").getAsString());
+                        tvDipasang.setText(data.get("dipasang").getAsString());
+                        tvDilihat.setText(data.get("dilihat").getAsString());
+                        tvDihubungi.setText(data.get("dihubungi").getAsString());
+                        tvLokasi.setText(user.get("address").getAsString());
                         Ion.with(DetailIklanActivity.this)
                                 .load(new RequestServer().getImg_url()+"profile/"+user.get("img").getAsString())
                                 .withBitmap()
                                 .placeholder(R.drawable.guest)
                                 .error(R.drawable.guest)
                                 .intoImageView(ivUser);
+                        no_hp = user.get("phone").getAsString();
+                        location = user.get("address").getAsString();
                         if(!imgs.isJsonNull()){
                             for (int i=0; i<imgs.size(); i++){
                                 JsonObject img = imgs.get(i).getAsJsonObject();
@@ -148,6 +200,7 @@ public class DetailIklanActivity extends AppCompatActivity {
                                     if (currentPage == imgs.size()) {
                                         currentPage = 0;
                                     }
+                                    Log.d("currentPage",">"+currentPage);
                                     mPager.setCurrentItem(currentPage++, true);
                                 }
                             };
@@ -162,6 +215,41 @@ public class DetailIklanActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    private void launchDialer(String no_hp)
+    {
+        // No permisison needed
+        Intent callIntent = new Intent(Intent.ACTION_DIAL);
+        callIntent.setData(Uri.parse("tel:"+no_hp));
+        startActivity(callIntent);
+    }
+
+    private void sendSMSMessage(String no_hp) {
+        try {
+            Uri uri = Uri.parse("smsto:"+no_hp);
+            // No permisison needed
+            Intent smsIntent = new Intent(Intent.ACTION_SENDTO, uri);
+            // Set the message to be sent
+            //smsIntent.putExtra("sms_body", "SMS application launched from stackandroid.com example");
+            startActivity(smsIntent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void openMap(String location)
+    {
+        Uri gmmIntentUri = Uri.parse("geo:-8.4095178,115.18891600000006?q="+location);
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        startActivity(mapIntent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();

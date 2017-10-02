@@ -247,7 +247,8 @@ public class MainActivity extends AppCompatActivity
 
         if(session.isLoggedIn()){
             if (id == R.id.nav_kategori) {
-                // Handle the camera action
+                Intent i = new Intent(MainActivity.this, KategoriActivity.class);
+                startActivity(i);
             } else if (id == R.id.nav_iklan) {
                 Intent i = new Intent(MainActivity.this, KelolaIklanActivity.class);
                 startActivity(i);
@@ -271,7 +272,8 @@ public class MainActivity extends AppCompatActivity
             }
         }else{
             if (id == R.id.nav_kategori) {
-
+                Intent i = new Intent(MainActivity.this, KategoriActivity.class);
+                startActivity(i);
             } else if (id == R.id.nav_login) {
                 Intent i = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(i);
@@ -341,7 +343,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void doSearch() {
-        Snackbar.make(findViewById(R.id.drawer_layout), "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        EditText edtSearch = (EditText) findViewById(R.id.edtSearch);
+        Intent i = new Intent(MainActivity.this,SearchActivity.class);
+        i.putExtra("keyword",edtSearch.getText().toString());
+        startActivity(i);
     }
 }

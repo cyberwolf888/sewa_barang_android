@@ -9,6 +9,8 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
         android:allowBackup="true"
@@ -57,7 +59,10 @@
             android:name=".ScrollingActivity"
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SampleButtonActivity"></activity>
+        <activity android:name=".SampleButtonActivity" />
+        <activity android:name=".SearchActivity" />
+        <activity android:name=".KategoriActivity" />
+        <activity android:name=".DetailKategoriActivity"></activity>
     </application>
 
 </manifest>

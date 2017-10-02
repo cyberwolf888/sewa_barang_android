@@ -40,12 +40,12 @@
                     android:id="@+id/tvHarga"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="100dp"
+                    android:layout_marginTop="180sp"
                     android:text="Rp 310.00/Hari"
                     android:background="@color/colorPrimaryDark"
-                    android:padding="10dp"
+                    android:padding="10sp"
                     android:textColor="@color/white"
-                    android:textSize="14sp"/>
+                    android:textSize="16sp"/>
             </RelativeLayout>
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -83,19 +83,19 @@
                 android:id="@+id/action_a"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                fab:fab_colorNormal="@color/white"
+                fab:fab_colorNormal="#369eca"
                 fab:fab_title="SMS"
-                fab:fab_icon="@drawable/ic_menu_camera"
-                fab:fab_colorPressed="@color/white_pressed"/>
+                fab:fab_icon="@drawable/ic_message"
+                fab:fab_colorPressed="#1c4b60"/>
 
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/action_b"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                fab:fab_colorNormal="@color/white"
-                fab:fab_icon="@drawable/ic_menu_camera"
+                fab:fab_colorNormal="#36cab4"
+                fab:fab_icon="@drawable/ic_call"
                 fab:fab_title="Call"
-                fab:fab_colorPressed="@color/white_pressed"/>
+                fab:fab_colorPressed="#217c6f"/>
 
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
