@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/edit_iklan_form"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.android.sewabarang.EditIklanActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:id="@+id/progressBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/black_semi_transparent"
+                android:visibility="gone">
+                <ProgressBar
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true" />
+            </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/form_tambah_gambar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textSize="14dp"
+                    android:text="Menampilkan lebih dari satu foto barang akan menambah kepercayaan calom pemnyewa dan meningkatkan kesempatan barang disewa." />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/iv1"
+                        android:layout_width="100sp"
+                        android:layout_height="100sp"
+                        android:background="@drawable/ic_add_img"
+                        android:scaleType="centerCrop"
+                        android:layout_margin="10dp"/>
+                    <ImageView
+                        android:id="@+id/iv2"
+                        android:layout_width="100sp"
+                        android:layout_height="100sp"
+                        android:background="@drawable/ic_add_img"
+                        android:scaleType="centerCrop"
+                        android:layout_margin="10dp"/>
+                    <ImageView
+                        android:id="@+id/iv3"
+                        android:layout_width="100sp"
+                        android:layout_height="100sp"
+                        android:background="@drawable/ic_add_img"
+                        android:scaleType="centerCrop"
+                        android:layout_margin="10dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:descendantFocusability="beforeDescendants"
+                android:focusableInTouchMode="true">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="5dp">
+
+                    <EditText
+                        android:id="@+id/etJudul"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Judul Iklan"
+                        android:inputType="textCapSentences"
+                        android:textSize="16dp" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="5dp">
+
+                    <EditText
+                        android:id="@+id/etKategori"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:hint="Kategori"
+                        android:inputType="text"
+                        android:textSize="16dp" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="5dp">
+
+                    <EditText
+                        android:id="@+id/etHarga"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Harga"
+                        android:inputType="numberDecimal"
+                        android:textSize="16dp" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="5dp">
+
+                    <EditText
+                        android:id="@+id/etSatuan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:hint="Satuan Harga"
+                        android:inputType="text"
+                        android:textSize="16dp" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="5dp">
+
+                    <EditText
+                        android:id="@+id/etDeskripsi"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:hint="Deskripsi"
+                        android:inputType="text|textMultiLine"
+                        android:textSize="16dp" />
+                </android.support.design.widget.TextInputLayout>
+
+                <Button
+                    android:id="@+id/btnSimpan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="Simpan Perubahan"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+</ScrollView>

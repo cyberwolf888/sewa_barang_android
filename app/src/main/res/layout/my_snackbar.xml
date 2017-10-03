@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:paddingLeft="10dp"
+    android:background="#000000"
+    android:weightSum="10">
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="6"
+        android:gravity="center_vertical"
+        android:text="Apa yang akan anda lakukan?"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/txtOne"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:text="HAPUS"
+        android:textColor="#f74040"/>
+
+    <TextView
+        android:id="@+id/txtTwo"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:text="EDIT"
+        android:textColor="@color/colorPrimary"/>
+
+</LinearLayout>

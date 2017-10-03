@@ -62,7 +62,8 @@
         <activity android:name=".SampleButtonActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".KategoriActivity" />
-        <activity android:name=".DetailKategoriActivity"></activity>
+        <activity android:name=".DetailKategoriActivity" />
+        <activity android:name=".EditIklanActivity"></activity>
     </application>
 
 </manifest>

@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.android.sewabarang.Utility.RequestServer;
+import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.http.body.FilePart;
 import com.koushikdutta.async.http.body.Part;
@@ -157,6 +158,20 @@ public class TambahGambarIklanActivity extends AppCompatActivity {
                 .setPositiveButton("Iya", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        String url = new RequestServer().getServer_url() + "deleteIklan";
+                        JsonObject jsonReq = new JsonObject();
+                        jsonReq.addProperty("iklan_id", iklan_id);
+                        Ion.with(TambahGambarIklanActivity.this)
+                                .load(url)
+                                .setJsonObjectBody(jsonReq)
+                                .asString()
+                                .setCallback(new FutureCallback<String>() {
+                                    @Override
+                                    public void onCompleted(Exception e, String result) {
+                                    Log.d("Result",">"+result);
+
+                                    }
+                                });
                         finish();
                     }
                 })
@@ -262,7 +277,10 @@ public class TambahGambarIklanActivity extends AppCompatActivity {
         }
         if (checkSelfPermission(READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
             return true;
+        }else{
+            requestPermissions(new String[]{READ_EXTERNAL_STORAGE}, WRITE_EXTERNAL_RESULT);
         }
+
         if (shouldShowRequestPermissionRationale(READ_EXTERNAL_STORAGE)) {
             Snackbar.make(form_tambah_gambar, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
                     .setAction(android.R.string.ok, new View.OnClickListener() {
@@ -289,7 +307,7 @@ public class TambahGambarIklanActivity extends AppCompatActivity {
                 //permission diterima
             }else{
                 //permission ditolak
-                finish();
+                mayRequestPermission();
             }
         }
     }

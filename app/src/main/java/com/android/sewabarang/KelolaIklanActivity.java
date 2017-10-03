@@ -1,5 +1,7 @@
 package com.android.sewabarang;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,13 +11,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -61,6 +66,7 @@ public class KelolaIklanActivity extends AppCompatActivity {
     }
 
     private void loadData(){
+        progressBar(true);
         String url = new RequestServer().getServer_url() + "getIklan";
         JsonObject jsonReq = new JsonObject();
         jsonReq.addProperty("user_id", session.getUserId());
@@ -94,6 +100,8 @@ public class KelolaIklanActivity extends AppCompatActivity {
                                 if(!imgs.isJsonNull()){
                                     JsonObject img = imgs.get(0).getAsJsonObject();
                                     photo = new RequestServer().getImg_url()+"iklan/"+objData.get("id").getAsString()+"/"+img.get("img").getAsString();
+                                }else{
+                                    //photo = new RequestServer().getImg_url()+"iklan/"+objData.get("id").getAsString()+"/"+img.get("img").getAsString();
                                 }
 
                                 HashMap<String, String> dataList = new HashMap<String, String>();
@@ -130,12 +138,104 @@ public class KelolaIklanActivity extends AppCompatActivity {
                                 }
                             };
                             lvKelolaIklan.setAdapter(adapter);
+                            lvKelolaIklan.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                    JsonObject objSelected = mData.get(i).getAsJsonObject();
+                                    myCustomSnackbar(objSelected);
+                                }
+                            });
+                            progressBar(false);
                         }else{
                             tvKosong.setVisibility(View.VISIBLE);
+                            progressBar(false);
                         }
 
                     }
                 });
+    }
+
+    public void progressBar(final Boolean show){
+        final RelativeLayout layout = (RelativeLayout) findViewById(R.id.progressBar);
+        int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+        layout.setVisibility(show ? View.GONE : View.VISIBLE);
+        layout.animate().setDuration(shortAnimTime).alpha(
+                show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                layout.setVisibility(show ? View.GONE : View.VISIBLE);
+            }
+        });
+
+        layout.setVisibility(show ? View.VISIBLE : View.GONE);
+        layout.animate().setDuration(shortAnimTime).alpha(
+                show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                layout.setVisibility(show ? View.VISIBLE : View.GONE);
+            }
+        });
+    }
+
+    public void myCustomSnackbar(final JsonObject objSelected)
+    {
+        // Create the Snackbar
+        LinearLayout.LayoutParams objLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        final Snackbar snackbar = Snackbar.make(content_kelola_iklan, "", Snackbar.LENGTH_INDEFINITE);
+        // Get the Snackbar's layout view
+        Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+        layout.setPadding(0,0,0,0);
+        // Hide the text
+        TextView textView = (TextView) layout.findViewById(android.support.design.R.id.snackbar_text);
+        textView.setVisibility(View.INVISIBLE);
+
+        LayoutInflater mInflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+        // Inflate our custom view
+        View snackView = getLayoutInflater().inflate(R.layout.my_snackbar, null);
+        // Configure the view
+        TextView textViewOne = (TextView) snackView.findViewById(R.id.txtOne);
+
+        textViewOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Hapus
+                snackbar.dismiss();
+                progressBar(true);
+                String url = new RequestServer().getServer_url() + "deleteIklan";
+                JsonObject jsonReq = new JsonObject();
+                jsonReq.addProperty("iklan_id", objSelected.get("id").getAsString());
+                Ion.with(KelolaIklanActivity.this)
+                        .load(url)
+                        .setJsonObjectBody(jsonReq)
+                        .asString()
+                        .setCallback(new FutureCallback<String>() {
+                            @Override
+                            public void onCompleted(Exception e, String result) {
+                                progressBar(false);
+                                Log.d("Result",">"+result);
+                                loadData();
+                            }
+                        });
+            }
+        });
+
+        TextView textViewTwo = (TextView) snackView.findViewById(R.id.txtTwo);
+        textViewTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Edit
+                snackbar.dismiss();
+                Intent a = new Intent(KelolaIklanActivity.this,EditIklanActivity.class);
+                a.putExtra("iklan_id",objSelected.get("id").getAsString());
+                startActivity(a);
+            }
+        });
+
+        // Add the view to the Snackbar's layout
+        layout.addView(snackView, objLayoutParams);
+        // Show the Snackbar
+        snackbar.show();
     }
 
     @Override

@@ -283,6 +283,8 @@ public class ProfileActivity extends AppCompatActivity {
         }
         if (checkSelfPermission(READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
             return true;
+        }else{
+            requestPermissions(new String[]{READ_EXTERNAL_STORAGE}, WRITE_EXTERNAL_RESULT);
         }
         if (shouldShowRequestPermissionRationale(READ_EXTERNAL_STORAGE)) {
             Snackbar.make(profile_form, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
@@ -310,7 +312,7 @@ public class ProfileActivity extends AppCompatActivity {
                 //permission diterima
             }else{
                 //permission ditolak
-                finish();
+                mayRequestPermission();
             }
         }
     }
