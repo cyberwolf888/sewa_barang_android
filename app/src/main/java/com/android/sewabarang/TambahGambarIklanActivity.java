@@ -197,40 +197,44 @@ public class TambahGambarIklanActivity extends AppCompatActivity {
 
     private void setImage(ImageView img, Intent data, int code){
         String imagePath;
-        Uri pickedImage = data.getData();
-        String[] filePath = { MediaStore.Images.Media.DATA };
-        Cursor cursor = getContentResolver().query(pickedImage, filePath, null, null, null);
-        cursor.moveToFirst();
-        imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
-        //Cek file size
-        File file = new File(imagePath);
-        int file_size = Integer.parseInt(String.valueOf(file.length()/1024));
-        Log.d("File Size",">"+file_size);
-        if(file_size>(3*1024)){
-            imagePath = "";
-            Snackbar.make(form_tambah_gambar, "Ukuran gambar terlalu besar. Ukuran file maksimal 3 MB.", Snackbar.LENGTH_INDEFINITE)
-                    .setAction("Tutup", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
 
-                        }
-                    }).show();
-        }else{
-                    /*BitmapFactory.Options options = new BitmapFactory.Options();
-                    options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-                    Bitmap bitmap = BitmapFactory.decodeFile(imagePath, options);*/
-            img.setImageBitmap(decodeSampledBitmapFromResource(imagePath, 300, 300));
+        try{
+            Uri pickedImage = data.getData();
+            String[] filePath = { MediaStore.Images.Media.DATA };
+            Cursor cursor = getContentResolver().query(pickedImage, filePath, null, null, null);
+            cursor.moveToFirst();
+            imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
+            Log.d("imagePath",">"+imagePath);
+            //Cek file size
+            File file = new File(imagePath);
+            int file_size = Integer.parseInt(String.valueOf(file.length()/1024));
+            Log.d("File Size",">"+file_size);
+            if(file_size>(3*1024)){
+                imagePath = "";
+                Snackbar.make(form_tambah_gambar, "Ukuran gambar terlalu besar. Ukuran file maksimal 3 MB.", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Tutup", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                            }
+                        }).show();
+            }else{
+
+                img.setImageBitmap(decodeSampledBitmapFromResource(imagePath, 300, 300));
+            }
+            Log.d("code",">"+code);
+            switch (code){
+                case SELECT_PHOTO_1:
+                    img1=imagePath;break;
+                case SELECT_PHOTO_2:
+                    img2=imagePath;break;
+                case SELECT_PHOTO_3:
+                    img3=imagePath;break;
+            }
+            cursor.close();
+        }catch (Exception ex){
+            Log.d("error",">"+ex.toString());
         }
-        Log.d("code",">"+code);
-        switch (code){
-            case SELECT_PHOTO_1:
-                img1=imagePath;break;
-            case SELECT_PHOTO_2:
-                img2=imagePath;break;
-            case SELECT_PHOTO_3:
-                img3=imagePath;break;
-        }
-        cursor.close();
     }
 
     public static int calculateInSampleSize(
