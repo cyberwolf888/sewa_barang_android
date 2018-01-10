@@ -25,6 +25,7 @@ import java.util.TimerTask;
 import com.android.sewabarang.Adapter.SlideAdapter;
 import com.android.sewabarang.Utility.Helper;
 import com.android.sewabarang.Utility.RequestServer;
+import com.android.sewabarang.Utility.Session;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -43,10 +44,12 @@ public class DetailIklanActivity extends AppCompatActivity {
     private ImageView ivUser;
 
     private String id_iklan,title,no_hp,location;
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        session = new Session(this);
         id_iklan = getIntent().getStringExtra("id_iklan");
         setContentView(R.layout.activity_detail_iklan);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -96,7 +99,11 @@ public class DetailIklanActivity extends AppCompatActivity {
         });
 
         final FloatingActionsMenu menuMultipleActions = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
-        menuMultipleActions.setVisibility(View.GONE);
+        if(session.isLoggedIn()){
+            menuMultipleActions.setVisibility(View.VISIBLE);
+        }else {
+            menuMultipleActions.setVisibility(View.GONE);
+        }
         
         final com.getbase.floatingactionbutton.FloatingActionButton actionA = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.action_a);
         actionA.setOnClickListener(new View.OnClickListener() {
