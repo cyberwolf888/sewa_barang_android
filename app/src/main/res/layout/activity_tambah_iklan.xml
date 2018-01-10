@@ -83,6 +83,22 @@
                 android:layout_marginTop="5dp">
 
                 <EditText
+                    android:id="@+id/etStock"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Stock"
+                    android:inputType="numberDecimal"
+                    android:textSize="16dp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="5dp">
+
+                <EditText
                     android:id="@+id/etSatuan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

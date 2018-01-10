@@ -22,7 +22,7 @@ public class TambahIklanActivity extends AppCompatActivity {
     private final static int REQ_SATUAN = 222;
     private String id_kategori;
 
-    private EditText etJudul,etKategori,etHarga,etSatuan,etDeskripsi;
+    private EditText etJudul,etKategori,etHarga,etStock,etSatuan,etDeskripsi;
     private Button btnNext;
 
     Session session;
@@ -35,6 +35,7 @@ public class TambahIklanActivity extends AppCompatActivity {
         etJudul = (EditText) findViewById(R.id.etJudul);
         etKategori = (EditText) findViewById(R.id.etKategori);
         etHarga = (EditText) findViewById(R.id.etHarga);
+        etStock = (EditText) findViewById(R.id.etStock);
         etSatuan = (EditText) findViewById(R.id.etSatuan);
         etDeskripsi = (EditText) findViewById(R.id.etDeskripsi);
         btnNext = (Button) findViewById(R.id.btnNext);
@@ -84,6 +85,7 @@ public class TambahIklanActivity extends AppCompatActivity {
         etJudul.setError(null);
         etKategori.setError(null);
         etHarga.setError(null);
+        etStock.setError(null);
         etSatuan.setError(null);
         etDeskripsi.setError(null);
 
@@ -91,6 +93,7 @@ public class TambahIklanActivity extends AppCompatActivity {
         String judul = etJudul.getText().toString();
         String kategori = etKategori.getText().toString();
         String harga = etHarga.getText().toString();
+        String stock = etStock.getText().toString();
         String satuan = etSatuan.getText().toString();
         String deskripsi = etDeskripsi.getText().toString();
 
@@ -110,6 +113,11 @@ public class TambahIklanActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(harga)) {
             etHarga.setError("Harga tidak boleh kosong");
             focusView = etHarga;
+            cancel = true;
+        }
+        if (TextUtils.isEmpty(stock)) {
+            etStock.setError("Stock tidak boleh kosong");
+            focusView = etStock;
             cancel = true;
         }
         if (TextUtils.isEmpty(satuan)) {
@@ -136,6 +144,7 @@ public class TambahIklanActivity extends AppCompatActivity {
             jsonReq.addProperty("judul", judul);
             jsonReq.addProperty("category_id", id_kategori);
             jsonReq.addProperty("harga", harga);
+            jsonReq.addProperty("stock", stock);
             jsonReq.addProperty("satuan", satuan);
             jsonReq.addProperty("deskripsi", deskripsi);
 

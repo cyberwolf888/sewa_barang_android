@@ -61,6 +61,14 @@
                         android:paddingTop="5sp"
                         android:text="Member sejak 3 Feb 2016"
                         />
+                    <TextView
+                        android:id="@+id/tvLastLogin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:paddingTop="5sp"
+                        android:text="Last Login"
+                        />
                 </LinearLayout>
 
             </LinearLayout>
@@ -112,6 +120,25 @@
                     android:layout_marginRight="@dimen/text_margin"
                     android:weightSum="10">
                     <TextView
+                        android:id="@+id/label_stock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="Stock"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimary"
+                        />
+                    <TextView
+                        android:id="@+id/tvStock"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/label_dipasang"
+                        android:gravity="right"
+                        android:text="2"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        />
+                    <TextView
                         android:id="@+id/label_dipasang"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -119,6 +146,7 @@
                         android:text="Dipasang"
                         android:textSize="16sp"
                         android:textColor="@color/colorPrimary"
+                        android:layout_below="@+id/label_stock"
                         />
                     <TextView
                         android:id="@+id/tvDipasang"
@@ -129,6 +157,7 @@
                         android:text="Sep 5, 2017"
                         android:textSize="16sp"
                         android:textStyle="bold"
+                        android:layout_below="@+id/tvStock"
                         />
                     <View
                         android:layout_width="match_parent"

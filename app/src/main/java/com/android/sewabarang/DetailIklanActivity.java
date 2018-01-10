@@ -39,7 +39,7 @@ public class DetailIklanActivity extends AppCompatActivity {
     private static ViewPager mPager;
     private static int currentPage = 0;
     private ArrayList<String> imgsarray = new ArrayList<String>();
-    private TextView tvHarga,tvUserName,tvUserCreated,tvJudul,tvDeskripsi,tvLokasi,tvDilihat,tvDihubungi,tvDipasang;
+    private TextView tvHarga,tvUserName,tvUserCreated,tvJudul,tvDeskripsi,tvLokasi,tvDilihat,tvDihubungi,tvDipasang,tvStock,tvLastLogin;
     private ImageView ivUser;
 
     private String id_iklan,title,no_hp,location;
@@ -64,12 +64,14 @@ public class DetailIklanActivity extends AppCompatActivity {
         tvHarga = (TextView) findViewById(R.id.tvHarga);
         tvUserName = (TextView) findViewById(R.id.tvUserName);
         tvUserCreated = (TextView) findViewById(R.id.tvUserCreated);
+        tvLastLogin = (TextView) findViewById(R.id.tvLastLogin);
         tvJudul = (TextView) findViewById(R.id.tvJudul);
         tvDeskripsi = (TextView) findViewById(R.id.tvDeskripsi);
         tvLokasi = (TextView) findViewById(R.id.tvLokasi);
         tvDilihat = (TextView) findViewById(R.id.tvDilihat);
         tvDihubungi = (TextView) findViewById(R.id.tvDihubungi);
         tvDipasang = (TextView) findViewById(R.id.tvDipasang);
+        tvStock = (TextView) findViewById(R.id.tvStock);
         ivUser = (ImageView) findViewById(R.id.ivUser);
 
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
@@ -94,6 +96,7 @@ public class DetailIklanActivity extends AppCompatActivity {
         });
 
         final FloatingActionsMenu menuMultipleActions = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
+        menuMultipleActions.setVisibility(View.GONE);
         
         final com.getbase.floatingactionbutton.FloatingActionButton actionA = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.action_a);
         actionA.setOnClickListener(new View.OnClickListener() {
@@ -171,9 +174,11 @@ public class DetailIklanActivity extends AppCompatActivity {
                         tvHarga.setText(new Helper().formatNumber(Integer.valueOf(data.get("harga").getAsString()))+"/"+data.get("satuan").getAsString());
                         tvUserName.setText(user.get("name").getAsString());
                         tvUserCreated.setText("Member sejak "+data.get("memberSejak").getAsString());
+                        tvLastLogin.setText("Last Login "+data.get("lastLogin").getAsString());
                         tvJudul.setText(data.get("judul").getAsString());
                         tvDeskripsi.setText(data.get("deskripsi").getAsString());
                         tvDipasang.setText(data.get("dipasang").getAsString());
+                        tvStock.setText(data.get("stock").getAsString());
                         tvDilihat.setText(data.get("dilihat").getAsString());
                         tvDihubungi.setText(data.get("dihubungi").getAsString());
                         tvLokasi.setText(user.get("address").getAsString());
